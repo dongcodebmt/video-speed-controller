@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Video Speed Controller
 // @namespace    https://dongdev.com/
-// @version      1.0.0
+// @version      1.0.1
 // @description  Adjust and remember video speed using keyboard shortcuts
 // @author       github@dongcodebmt
 // @match        *://*/*
