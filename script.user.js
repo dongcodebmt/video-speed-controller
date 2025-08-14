@@ -119,6 +119,8 @@
 
     const wrapper = document.createElement('div');
     wrapper.style.position = 'relative';
+    wrapper.style.height = '100%';
+    wrapper.style.width = 'auto';
 
     const parent = el.parentElement;
     if (!parent) return overlay;
