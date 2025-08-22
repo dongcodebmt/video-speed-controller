@@ -8,15 +8,46 @@
 // @exclude      *://*.twitch.tv/*
 // @run-at       document-start
 // @icon         https://raw.githubusercontent.com/dongcodebmt/video-speed-controller/main/docs/icon.png
-// @grant        none
 // @license      MIT
 // @supportURL   https://github.com/dongcodebmt/video-speed-controller/issues
 // @updateURL    https://raw.githubusercontent.com/dongcodebmt/video-speed-controller/main/script.meta.js
 // @downloadURL  https://raw.githubusercontent.com/dongcodebmt/video-speed-controller/main/script.user.js
+// @grant        GM_addStyle
 // ==/UserScript==
 
 (function () {
   'use strict';
+
+  GM_addStyle(`
+      .dd_video_speed_overlay {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 9999;
+        background: rgba(0,0,0,0.6);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-family: monospace;
+        opacity: 0;
+        transition: 1s;
+      }
+
+      .dd_video_speed_overlay:hover {
+        opacity: 1;
+      }
+
+      .dd_video_speed_overlay_active {
+        opacity: 1;
+      }
+
+      .dd_video_speed_wrapper {
+        position: relative;
+        height: 100%;
+        width: auto;
+      }
+  `);
 
   const config = {
     delta: 0.5,
@@ -94,11 +125,11 @@
   function updateOverlay(el, rate) {
     const overlay = createOverlay(el);
     overlay.textContent = `🚀 ${rate.toFixed(1)}x`;
-    overlay.style.opacity = '1';
+    overlay.classList.add('dd_video_speed_overlay_active');
 
     clearTimeout(overlay._timeout);
     overlay._timeout = setTimeout(() => {
-      overlay.style.opacity = '0';
+      overlay.classList.remove('dd_video_speed_overlay_active');
     }, 2000);
   }
 
@@ -106,24 +137,10 @@
     if (el._overlay) return el._overlay;
 
     const overlay = document.createElement('div');
-    overlay.style.position = 'absolute';
-    overlay.style.top = '10px';
-    overlay.style.left = '10px';
-    overlay.style.zIndex = '9999';
-    overlay.style.background = 'rgba(0,0,0,0.6)';
-    overlay.style.color = 'white';
-    overlay.style.padding = '4px 8px';
-    overlay.style.borderRadius = '6px';
-    overlay.style.fontSize = '13px';
-    overlay.style.fontFamily = 'monospace';
-    overlay.style.pointerEvents = 'none';
-    overlay.style.transition = 'opacity 1s';
-    overlay.style.opacity = '0';
+    overlay.classList.add('dd_video_speed_overlay');
 
     const wrapper = document.createElement('div');
-    wrapper.style.position = 'relative';
-    wrapper.style.height = '100%';
-    wrapper.style.width = 'auto';
+    wrapper.classList.add('dd_video_speed_wrapper');
 
     const parent = el.parentElement;
     if (!parent) return overlay;

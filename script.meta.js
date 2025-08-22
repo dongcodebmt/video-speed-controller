@@ -8,9 +8,9 @@
 // @exclude      *://*.twitch.tv/*
 // @run-at       document-start
 // @icon         https://raw.githubusercontent.com/dongcodebmt/video-speed-controller/main/docs/icon.png
-// @grant        none
 // @license      MIT
 // @supportURL   https://github.com/dongcodebmt/video-speed-controller/issues
 // @updateURL    https://raw.githubusercontent.com/dongcodebmt/video-speed-controller/main/script.meta.js
 // @downloadURL  https://raw.githubusercontent.com/dongcodebmt/video-speed-controller/main/script.user.js
+// @grant        GM_addStyle
 // ==/UserScript==
