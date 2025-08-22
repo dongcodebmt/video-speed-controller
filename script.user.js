@@ -25,7 +25,8 @@
       increase: 'd',
       reset: 'r'
     },
-    storageKey: 'dd_video_speed'
+    storageKey: 'dd_video_speed',
+    currentSpeed: null
   };
   let videoEl = null;
 
@@ -80,10 +81,12 @@
   }
 
   function setRate(rate) {
+    config.currentSpeed = rate;
     localStorage.setItem(config.storageKey, rate.toString());
   }
 
   function getRate() {
+    if (config.currentSpeed) return config.currentSpeed;
     const saved = parseFloat(localStorage.getItem(config.storageKey));
     return isNaN(saved) ? 1.0 : saved;
   }
