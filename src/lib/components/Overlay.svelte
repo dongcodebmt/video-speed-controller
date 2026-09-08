@@ -4,6 +4,7 @@
   import { Action } from '$lib/types';
   import { debounce, styleObjectToString, formatRate } from '$lib/utils';
   import { t } from '$lib/stores';
+  import styles from './Overlay.module.css';
 
   export interface OverlayProps {
     video: HTMLVideoElement;
@@ -76,35 +77,41 @@
   };
 </script>
 
-<div class="overlay-wrapper">
-  <div class:active class="overlay" style={styleObjectToString(styleState)}>
-    <div class="overlay-text">
-      <div class="overlay-icon">
+<div class={styles['overlay-wrapper']}>
+  <div 
+    class="{styles.overlay} {active ? styles.active : ''}" 
+    style={styleObjectToString(styleState)}
+  >
+    <div class={styles['overlay-text']}>
+      <div class={styles['overlay-icon']}>
         <SpeedLoopIcon width={18} height={18} color="white" />
       </div>
-      <div class="overlay-rate">
+      <div class={styles['overlay-rate']}>
         <span>{formatRate(rate)}</span>
       </div>
     </div>
-    <div class="overlay-controls">
+
+    <div class={styles['overlay-controls']}>
       <button
-        class="overlay-button"
+        class={styles['overlay-button']}
         onclick={decrease}
         ondblclick={stop}
         aria-label={$t('aria.decrease_speed')}
       >
         <MinusIcon width={14} height={14} color="white" />
       </button>
+
       <button
-        class="overlay-button"
+        class={styles['overlay-button']}
         onclick={reset}
         ondblclick={stop}
         aria-label={$t('aria.reset_speed')}
       >
         <ResetIcon width={14} height={14} color="white" />
       </button>
+
       <button
-        class="overlay-button"
+        class={styles['overlay-button']}
         onclick={increase}
         ondblclick={stop}
         aria-label={$t('aria.increase_speed')}
@@ -114,81 +121,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .overlay-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    z-index: 9999 !important;
-  }
-
-  .overlay {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 4px 8px;
-    border-radius: 6px;
-    opacity: 0;
-    transition: 1s;
-    gap: 0;
-    pointer-events: auto;
-  }
-
-  .overlay:hover {
-    opacity: 1;
-  }
-
-  .overlay.active {
-    opacity: 1;
-  }
-
-  .overlay-text {
-    display: flex;
-    gap: 2px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .overlay-icon,
-  .overlay-rate {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .overlay-rate {
-    font-size: 14px;
-    font-weight: 600;
-    font-family: Arial, sans-serif;
-    color: white;
-    line-height: 1;
-  }
-
-  .overlay-controls {
-    display: none;
-    gap: 6px;
-    margin-left: 8px;
-  }
-
-  .overlay:hover .overlay-controls {
-    display: flex;
-  }
-
-  .overlay-button {
-    all: unset;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.65);
-    border-radius: 5px;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-  }
-</style>

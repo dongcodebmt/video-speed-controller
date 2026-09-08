@@ -30,6 +30,11 @@ export default defineConfig({
       }
     }),
   ],
+  css: {
+    modules: {
+      generateScopedName: '_[hash:base64:8]'
+    }
+  },
   resolve: {
     alias: {
       '$': path.resolve('./src'),
