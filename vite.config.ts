@@ -35,6 +35,9 @@ export default defineConfig({
       generateScopedName: '_[hash:base64:8]'
     }
   },
+  build: {
+    minify: true
+  },
   resolve: {
     alias: {
       '$': path.resolve('./src'),
