@@ -16,6 +16,20 @@ export class FacebookHandler extends BaseHandler {
   }
 
   public getPosition(video: HTMLVideoElement): MountConfig {
+    const pathname = location.pathname;
+    if (pathname.includes('/messages/') || document.querySelector('a[download]')) {
+      return {
+        element: video.parentElement
+          ?.parentElement
+          ?.parentElement
+          ?.parentElement
+          ?.parentElement
+          ?.parentElement
+          ?? document.body,
+        position: MountPosition.FirstChild
+      };
+    }
+
     return {
       element: video.parentElement
         ?.parentElement
